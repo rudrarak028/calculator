@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Calculator Box */
+        .calculator-box {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid white;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
+            width: 350px;
+            text-align: center;
+        }
+
+        .display {
+            width: 100%;
+            text-align: right;
+            padding: 15px;
+            background-color: grey;
+            border-radius: 10px;
+            font-size: 2em;
+            color: black;
+            margin-bottom: 15px;
+            border: 2px solid white;
+            height: 50px;
+            line-height: 50px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .btn-group button {
+            background-color: white; 
+            border: 1px solid black; 
+            color: black; 
+            padding: 15px;
+            cursor: pointer;
+            width: 22%; 
+            margin: 5px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .random button {
+            background-color: orange;
+            color: black;
+        }
+
+        .rom button {
+            background-color: red;
+            color: white;
+            width: 50%;
+        }
+
+        /* Hover Effects */
+        .btn-group button:hover {
+            background-color: lightgray;
+            transform: scale(1.05);
+        }
+
+        .random button:hover {
+            background-color: blue;
+            color: white;
+        }
+
+        .rom button:hover {
+            background-color: blueviolet;
+            color: white;
+        }
+
+        .clear {
+            background-color: darkred;
+            color: white;
+        }
+
+        .clear:hover {
+            background-color: red;
+        }
+
+        .backspace {
+            background-color: darkblue;
+            color: white;
+        }
+
+        .backspace:hover {
+            background-color: blue;
+        }
+
+        .equals {
+            background-color: green;
+            color: white;
+            width: 100%;
+        }
+
+        .equals:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-box">
+        <div class="display" id="display">0</div>
+
+        <div class="btn-group">
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <div class="random">
+                <button onclick="appendOperator('+')">+</button>
+            </div>
+        </div>  
+
+        <div class="btn-group">
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <div class="random">
+                <button onclick="appendOperator('-')">-</button>
+            </div>
+        </div>  
+
+        <div class="btn-group">
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <div class="random">
+                <button onclick="appendOperator('/')">/</button>
+            </div>
+        </div>  
+
+        <div class="btn-group">
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('00')">00</button>
+            <div class="random">
+                <button onclick="appendOperator('%')">%</button>
+                <button onclick="appendOperator('*')">*</button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <div class="rom">
+                <button class="equals" onclick="calculateResult()">=</button>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="clear" style="width: 48%;" onclick="clearDisplay()">C</button>
+            <button class="backspace" style="width: 48%;" onclick="backspace()">←</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+
+        function appendNumber(num) {
+            if (display.innerText === '0') {
+                display.innerText = num;
+            } else {
+                display.innerText += num;
+            }
+        }
+
+        function appendOperator(op) {
+            display.innerText += ' ' + op + ' ';
+        }
+
+        function clearDisplay() {
+            display.innerText = '0';
+        }
+
+        function backspace() {
+            let text = display.innerText.trim();
+            if (text.length === 1) {
+                display.innerText = '0';
+            } else {
+                display.innerText = text.slice(0, -1);
+            }
+        }
+
+        function calculateResult() {
+            try {
+                display.innerText = eval(display.innerText);
+            } catch {
+                display.innerText = 'Error';
+            }
+        }
+    </script>
+
+</body>
+</html>
